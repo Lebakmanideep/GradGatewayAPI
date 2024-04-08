@@ -27,6 +27,7 @@ public class JobPostDTO {
 
     private boolean visaSponsorship;
 
+
     private int companyId;
 
 }

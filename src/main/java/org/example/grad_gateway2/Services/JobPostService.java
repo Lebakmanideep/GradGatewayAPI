@@ -3,6 +3,7 @@ package org.example.grad_gateway2.Services;
 import org.example.grad_gateway2.DTO.JobPostDTO;
 import org.example.grad_gateway2.DTO.JobPostResponseDTO;
 
+import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
 
@@ -30,5 +31,5 @@ public interface JobPostService {
 
     List<JobPostResponseDTO> getJobPostByVisaSponsorship(boolean visaSponsorship);
 
-    List<JobPostResponseDTO> getJobPostByPostedAtAfter(Date postedAt);
+    List<JobPostResponseDTO> getJobPostByPostedAtAfter(String postedAt) throws ParseException;
 }

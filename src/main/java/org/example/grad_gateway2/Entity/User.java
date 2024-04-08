@@ -7,6 +7,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Entity
 @Data
 @AllArgsConstructor
@@ -35,5 +37,15 @@ public class User {
     @JoinColumn(name = "company_id")
     private Company company;
 
+    @OneToMany(mappedBy = "user")
+    private List<Applications> applications;
 
+    @OneToMany(mappedBy = "user")
+    private List<JobPost> jobPosts;
+
+    @OneToMany(mappedBy = "user")
+    private List<Reviews> reviews;
+
+    @OneToOne(mappedBy = "user")
+    private UserData userData;
 }

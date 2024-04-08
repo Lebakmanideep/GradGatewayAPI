@@ -27,5 +27,5 @@ public class RegisterDTO {
     @NotBlank(message = "Role is required")
     private String role;
 
-    private int companyId;
+    private long companyId;
 }
