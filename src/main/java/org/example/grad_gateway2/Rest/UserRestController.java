@@ -18,7 +18,7 @@ public class UserRestController {
         this.userDataService = userDataService;
     }
 
-    @GetMapping("/add")
+    @PostMapping("/add")
     public ResponseEntity<String> addUserData(@Valid @RequestBody UserDataDTO userDataDTO){
         try{
             userDataService.addUserData(userDataDTO);
@@ -28,7 +28,7 @@ public class UserRestController {
         }
     }
 
-    @GetMapping("/update/{id}")
+    @PutMapping("/update/{id}")
     public ResponseEntity<String> updateUserData(@Valid @RequestBody UserDataDTO userDataDTO, @PathVariable long id){
         try{
             userDataService.updateUserData(userDataDTO, id);
