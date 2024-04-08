@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Data
@@ -46,6 +47,8 @@ public class JobPost {
 
     private boolean visaSponsorship;
 
+    @OneToMany(mappedBy = "jobPost")
+    private List<Applications> applications;
 
 
 

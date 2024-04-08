@@ -18,10 +18,10 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests(authorizeRequests ->
                         authorizeRequests
-                                .requestMatchers(HttpMethod.GET,"/api/company/**","/api/review/**","/api/jobs/**").permitAll()
-                                .requestMatchers(HttpMethod.POST,"/api/company/**","/api/jobs/**").hasAnyAuthority("EMPLOYER","ADMIN")
-                                .requestMatchers(HttpMethod.DELETE,"/api/company/**","/api/jobs/**").hasAnyAuthority("EMPLOYER","ADMIN")
-                                .requestMatchers(HttpMethod.PUT,"/api/company/**","/api/jobs/**").hasAnyAuthority("EMPLOYER","ADMIN")
+                                .requestMatchers(HttpMethod.GET,"/api/company/**","/api/review/**","/api/jobPost/**").permitAll()
+                                .requestMatchers(HttpMethod.POST,"/api/company/**","/api/jobPost/**").hasAnyAuthority("EMPLOYER","ADMIN")
+                                .requestMatchers(HttpMethod.DELETE,"/api/company/**","/api/jobPost/**").hasAnyAuthority("EMPLOYER","ADMIN")
+                                .requestMatchers(HttpMethod.PUT,"/api/company/**","/api/jobPost/**").hasAnyAuthority("EMPLOYER","ADMIN")
                                 .requestMatchers(HttpMethod.POST,"/api/review/**").hasAnyAuthority("STUDENT","ADMIN")
                                 .requestMatchers(HttpMethod.DELETE,"/api/review/**").hasAnyAuthority("STUDENT","ADMIN")
                                 .requestMatchers(HttpMethod.PUT,"/api/review/**").hasAnyAuthority("STUDENT","ADMIN")

@@ -7,6 +7,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Entity
 @Data
 @NoArgsConstructor
@@ -31,4 +33,13 @@ public class Company {
     private int size;
 
     private String logo;
+
+    @OneToMany(mappedBy = "company")
+    private List<JobPost> jobPosts;
+
+    @OneToMany(mappedBy = "company")
+    private List<Reviews> reviews;
+
+    @OneToMany(mappedBy = "company")
+    private List<User> users;
 }

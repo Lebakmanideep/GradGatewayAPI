@@ -13,6 +13,8 @@ import org.example.grad_gateway2.Util.AuthenticationDetails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -42,7 +44,7 @@ public class JobPostServiceImpl implements JobPostService {
 
         Optional<User> user = authenticationDetails.getUser();
 
-        if (company == null || user.isEmpty()) {
+        if (user.isEmpty()) {
             throw new IllegalArgumentException("Unauthorized");
         }
 
@@ -55,6 +57,7 @@ public class JobPostServiceImpl implements JobPostService {
                 .experience(jobPostDTO.getExperience())
                 .salary(jobPostDTO.getSalary())
                 .visaSponsorship(jobPostDTO.isVisaSponsorship())
+                .postedAt(new Date())
                 .company(company)
                 .user(user.get())
                 .build();
@@ -158,9 +161,11 @@ public class JobPostServiceImpl implements JobPostService {
     }
 
     @Override
-    public List<JobPostResponseDTO> getJobPostByPostedAtAfter(Date postedAt) {
+    public List<JobPostResponseDTO> getJobPostByPostedAtAfter(String postedAt) throws ParseException {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = formatter.parse(postedAt);
         return jobPostRepository
-                .findAllByPostedAtAfter(postedAt)
+                .findAllByPostedAtAfter(date)
                 .stream()
                 .map(this::convertToDTO)
                 .collect(Collectors.toList());

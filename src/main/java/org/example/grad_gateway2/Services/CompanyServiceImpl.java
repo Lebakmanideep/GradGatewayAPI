@@ -13,8 +13,6 @@ import java.nio.file.Files;
 import java.util.List;
 import java.util.Optional;
 
-import static java.util.stream.DoubleStream.builder;
-import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
 
 @Service
 public class CompanyServiceImpl implements CompanyService{
@@ -69,13 +67,13 @@ public class CompanyServiceImpl implements CompanyService{
 
     @Override
     public void deleteCompany(long id) {
+        companyRepository.findById(id).orElseThrow(() -> new RuntimeException("Company not found"));
         companyRepository.deleteById(id);
     }
 
     @Override
     public List<Company> getCompany(String name) {
-        Optional<List<Company>> companies = Optional.of(companyRepository.findAllByNameLikeIgnoreCase(name));
-        return companies.orElse(null);
+        return companyRepository.findAllByNameLikeIgnoreCase("%" + name + "%" );
     }
 
     @Override

@@ -8,9 +8,10 @@ import org.example.grad_gateway2.Util.AuthenticationDetails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Optional;
 
-import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
 
 @Service
 public class UserDataServiceImpl implements UserDataService{
@@ -27,7 +28,7 @@ public class UserDataServiceImpl implements UserDataService{
 
 
     @Override
-    public void addUserData(UserDataDTO userDataDTO) {
+    public void addUserData(UserDataDTO userDataDTO) throws ParseException {
 
         Optional<User> user = authenticationDetails.getUser();
         if(user.isEmpty()){
@@ -39,13 +40,14 @@ public class UserDataServiceImpl implements UserDataService{
                 .experience(userDataDTO.getExperience())
                 .location(userDataDTO.getAddress())
                 .user(user.get())
+                .dob(new SimpleDateFormat("yyyy-MM-dd").parse(userDataDTO.getDob()))
                 .build();
         userDataRepository.save(userData);
 
     }
 
     @Override
-    public void updateUserData(UserDataDTO userDataDTO, long id) {
+    public void updateUserData(UserDataDTO userDataDTO, long id) throws ParseException{
         Optional<User> user = authenticationDetails.getUser();
         if(user.isPresent() && !user.get().getRole().equals("ADMIN")&& user.get().getId() != id){
             throw new IllegalArgumentException("Unauthorized");
@@ -56,6 +58,7 @@ public class UserDataServiceImpl implements UserDataService{
             userData.setMobile(userDataDTO.getMobile());
             userData.setExperience(userDataDTO.getExperience());
             userData.setLocation(userDataDTO.getAddress());
+            userData.setDob(new SimpleDateFormat("yyyy-MM-dd").parse(userDataDTO.getDob()));
             userDataRepository.save(userData);
         }
 

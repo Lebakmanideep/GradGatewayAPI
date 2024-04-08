@@ -46,6 +46,11 @@ public class UserServiceImpl implements UserService{
                 .lastName(registerDTO.getLastName())
                 .role(registerDTO.getRole())
                 .build();
+        if (user.getRole().equals("EMPLOYER")) {
+            user.setCompany(companyRepository.findById(registerDTO.getCompanyId())
+                    .orElseThrow(() -> new RuntimeException("Company not found")));
+        }
+        userRepository.save(user);
     }
 
     @Override
@@ -68,12 +73,15 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public void deleteUser(long id) {
-
+        userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
+        userRepository.deleteById(id);
     }
+
+
 
     @Override
     public boolean userExists(String email) {
-        return false;
+        return userRepository.existsByEmail(email);
     }
 
     private UserResponseDTO convertToUserResponseDTO(User user){
