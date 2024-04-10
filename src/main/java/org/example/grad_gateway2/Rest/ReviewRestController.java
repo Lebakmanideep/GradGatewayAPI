@@ -53,7 +53,7 @@ public class ReviewRestController {
         }
     }
 
-    @GetMapping("/add")
+    @PostMapping("/add")
     public ResponseEntity<String> addReview(@Valid @RequestBody ReviewsDTO reviewsDTO){
         try{
             reviewService.addReview(reviewsDTO);

@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
+
 @RestController
 @RequestMapping("/api/user")
 public class UserRestController {
@@ -19,7 +21,7 @@ public class UserRestController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<String> addUserData(@Valid @RequestBody UserDataDTO userDataDTO){
+    public ResponseEntity<String> addUserData(@Valid @RequestBody UserDataDTO userDataDTO) throws ParseException {
         try{
             userDataService.addUserData(userDataDTO);
             return ResponseEntity.ok("User data added successfully");

@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Date;
+import java.text.ParseException;
 import java.util.List;
 
 @RestController
@@ -23,16 +24,17 @@ public class JobPostRestController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<String> addJobPost(@Valid @RequestParam JobPostDTO jobPostDTO){
+    public ResponseEntity<String> addJobPost(@Valid @RequestBody JobPostDTO jobPostDTO){
         try{
             jobPostService.addJobPost(jobPostDTO);
             return ResponseEntity.ok("Job post added successfully");
         } catch (Exception e){
-            return ResponseEntity.badRequest().body(e.getMessage());
+            return ResponseEntity.badRequest().body("Error: "+e.getMessage());
         }
+
     }
 
-    @PostMapping("/update/{id}")
+    @PutMapping("/update/{id}")
     public ResponseEntity<String> updateJobPost(@Valid @RequestBody JobPostDTO jobPostDTO, @PathVariable long id){
         try{
             jobPostService.updateJobPost(jobPostDTO, id);
@@ -100,7 +102,7 @@ public class JobPostRestController {
     }
 
     @GetMapping("/jobPost/postedAt")
-    public ResponseEntity<List<JobPostResponseDTO>> getJobByPostedAtAfter(@RequestParam Date postedAt){
+    public ResponseEntity<List<JobPostResponseDTO>> getJobByPostedAtAfter(@RequestParam String postedAt) throws ParseException {
         return ResponseEntity.ok(jobPostService.getJobPostByPostedAtAfter(postedAt));
     }
 
