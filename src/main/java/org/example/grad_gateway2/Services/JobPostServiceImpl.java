@@ -44,7 +44,7 @@ public class JobPostServiceImpl implements JobPostService {
 
         Optional<User> user = authenticationDetails.getUser();
 
-        if (company == null || user.isEmpty()) {
+        if (user.isEmpty()) {
             throw new IllegalArgumentException("Unauthorized");
         }
 

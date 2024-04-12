@@ -13,8 +13,6 @@ import java.nio.file.Files;
 import java.util.List;
 import java.util.Optional;
 
-import static java.util.stream.DoubleStream.builder;
-import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
 
 @Service
 public class CompanyServiceImpl implements CompanyService{
